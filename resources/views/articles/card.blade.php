@@ -63,4 +63,19 @@
             {{ $article->body }}
         </div>
     </div>
+    <div class="card-body pt-0 pb-2 pl-3">
+        <div class="card-text">
+            <article-like
+                v-bind:initial-is-liked-by='@json($article->isLikedBy(Auth::user()))'
+                v-bind:initial-count-likes='@json($article->count_likes)'
+                v-bind:authorized='@json(Auth::check())'
+                endpoint="{{ route('articles.like', ['article' => $article]) }}"
+            >
+            </article-like>
+        </div>
+    </div>
+
+
+
+
 </div>
