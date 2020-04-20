@@ -68,6 +68,8 @@
             <article-like
                 v-bind:initial-is-liked-by='@json($article->isLikedBy(Auth::user()))'
                 v-bind:initial-count-likes='@json($article->count_likes)'
+                v-bind:authorized='@json(Auth::check())'
+                endpoint="{{ route('articles.like', ['article' => $article]) }}"
             >
             </article-like>
         </div>
