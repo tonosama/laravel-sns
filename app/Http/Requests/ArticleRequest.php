@@ -6,6 +6,8 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class ArticleRequest extends FormRequest
 {
+    private $tags;
+
     /**
      * Determine if the user is authorized to make this request.
      *
