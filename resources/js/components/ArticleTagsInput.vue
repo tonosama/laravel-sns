@@ -1,11 +1,15 @@
 <template>
-    <input type="hidden" name="tags" :value="tagsJson">
-
     <div>
+        <input
+            type="hidden"
+            name="tags"
+            :value="tagsJson"
+        >
         <vue-tags-input
             v-model="tag"
             :tags="tags"
             placeholder="タグを5個まで入力できます"
+            :add-on-key="[13, 32]"
             :autocomplete-items="filteredItems"
             @tags-changed="newTags => tags = newTags"
         />
@@ -19,21 +23,20 @@
         components: {
             VueTagsInput,
         },
+        props: {
+            initialTags: {
+                type: Array,
+                default: [],
+            },
+            autocompleteItems: {
+                type: Array,
+                default: [],
+            },
+        },
         data() {
             return {
-                tag: '',
-                tags: [],
-                autocompleteItems: [{
-                    text: 'Spain',
-                }, {
-                    text: 'France',
-                }, {
-                    text: 'USA',
-                }, {
-                    text: 'Germany',
-                }, {
-                    text: 'China',
-                }],
+                tag: '',autocompleteItems
+                tags: this.initialTags,
             };
         },
         computed: {
@@ -42,12 +45,10 @@
                     return i.text.toLowerCase().indexOf(this.tag.toLowerCase()) !== -1;
                 });
             },
+            tagsJson() {
+                return JSON.stringify(this.tags)
+            },
         },
-
-        tagsJson(){
-            return JSON.stringify(this.tags)
-        },
-
     };
 </script>
 <style lang="css" scoped>
@@ -63,5 +64,8 @@
         margin-right: 4px;
         border-radius: 0px;
         font-size: 13px;
+    }
+    .vue-tags-input .ti-tag::before {
+        content: "#";
     }
 </style>
