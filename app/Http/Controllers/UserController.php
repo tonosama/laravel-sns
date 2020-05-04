@@ -50,5 +50,40 @@ class UserController extends Controller
         return ['name' => $name];
     }
 
+    public function likes(string $name)
+    {
+        $user = User::where('name', $name)->first();
+
+        $articles = $user->likes->sortByDesc('created_at');
+
+        return view('users.likes', [
+            'user' => $user,
+            'articles' => $articles,
+        ]);
+    }
+    public function followings(string $name)
+    {
+        $user = User::where('name', $name)->first();
+
+        $followings = $user->followings->sortByDesc('created_at');
+
+        return view('users.followings', [
+            'user' => $user,
+            'followings' => $followings,
+        ]);
+    }
+
+    public function followers(string $name)
+    {
+        $user = User::where('name', $name)->first();
+
+        $followers = $user->followers->sortByDesc('created_at');
+
+        return view('users.followers', [
+            'user' => $user,
+            'followers' => $followers,
+        ]);
+    }
+
 
 }
