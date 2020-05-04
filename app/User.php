@@ -68,6 +68,11 @@ class User extends Authenticatable
             : false;
     }
 
+    public function likes(): BelongsToMany
+    {
+        return $this->belongsToMany('App\Article', 'likes')->withTimestamps();
+    }
+
     public function getCountFollowersAttribute(): int
     {
         return $this->followers->count();
