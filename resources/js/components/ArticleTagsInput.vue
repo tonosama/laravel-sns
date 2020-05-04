@@ -18,7 +18,6 @@
 
 <script>
     import VueTagsInput from '@johmun/vue-tags-input';
-
     export default {
         components: {
             VueTagsInput,
@@ -35,7 +34,7 @@
         },
         data() {
             return {
-                tag: '',autocompleteItems
+                tag: '',
                 tags: this.initialTags,
             };
         },
