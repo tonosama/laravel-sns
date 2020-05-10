@@ -16,6 +16,16 @@
 //});
 
 Auth::routes(); //-- この行を追加
+Route::prefix('login')->name('login.')->group(function () {
+    Route::get('/{provider}', 'Auth\LoginController@redirectToProvider')->name('{provider}');
+    Route::get('/{provider}/callback', 'Auth\LoginController@handleProviderCallback')->name('{provider}.callback');
+});
+Route::prefix('register')->name('register.')->group(function () {
+    Route::get('/{provider}', 'Auth\RegisterController@showProviderUserRegistrationForm')->name('{provider}');
+    Route::post('/{provider}', 'Auth\RegisterController@registerProviderUser')->name('{provider}');
+
+});
+
 Route::resource('/articles', 'ArticleController')->except(['index','show'])->middleware('auth'); //-- この行を変更
 Route::get('/', 'ArticleController@index')->name('articles.index'); //-- この行を編集
 Route::resource('/articles', 'ArticleController')->only(['show']); //-- この行を変更
